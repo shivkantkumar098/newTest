@@ -1,7 +1,6 @@
 package com.javaAT.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -51,10 +50,7 @@ public class CheckoutOverviewPage {
     }
 
     public CheckoutOverviewPage finish() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();",
-                wait.until(ExpectedConditions.visibilityOfElementLocated(finishButton)));
-        wait.until(ExpectedConditions.urlContains("checkout-complete.html"));
+        driver.findElement(finishButton).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(confirmation));
         return this;
     }
