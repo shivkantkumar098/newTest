@@ -4,8 +4,8 @@ import com.javaAT.pages.CartPage;
 import com.javaAT.pages.CheckoutOverviewPage;
 import com.javaAT.pages.InventoryPage;
 import com.javaAT.pages.LoginPage;
+import com.javaAT.driver.DriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 public class SauceDemoTest {
 
     private WebDriver driver;
+    private final DriverManager driverManager = DriverManager.getInstance();
     private static final String BOLT_T_SHIRT = "Sauce Labs Bolt T-Shirt";
     private static final String BIKE_LIGHT = "Sauce Labs Bike Light";
     private static final String BOLT_DESCRIPTION =
@@ -23,8 +24,8 @@ public class SauceDemoTest {
 
     @BeforeMethod
     public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        driverManager.startDriver("chrome");
+        driver = driverManager.getDriver();
         driver.get("https://www.saucedemo.com/");
     }
 
@@ -59,9 +60,7 @@ public class SauceDemoTest {
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        driverManager.quitDriver();
     }
 
     public WebDriver getDriver() {
